@@ -1,25 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import {getMessages} from './firebase/messages';
 import './App.css';
+import MessageList from './components/MessageList';
+import MessageInput from './components/MessageInput';
 
 class App extends Component {
+  state = {
+    messages: []
+  };
+  
+  constructor() {
+    super();
+  }
+
+  componentDidMount() {
+    getMessages().subscribe(data => {
+      this.setState({messages: data});
+
+      console.log("state %o", this.state.messages);
+    });
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <MessageList messages={this.state.messages}/>
+        <MessageInput />
       </div>
     );
   }
