@@ -1,33 +1,20 @@
 import React, { Component } from 'react';
-import {getMessages} from './firebase/messages';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import Chat from './pages/Chat';
+import Login from './pages/Login';
 import './App.css';
-import MessageList from './components/MessageList';
-import MessageInput from './components/MessageInput';
 
 class App extends Component {
-  state = {
-    messages: []
-  };
-  
-  constructor() {
-    super();
-  }
-
-  componentDidMount() {
-    getMessages().subscribe(data => {
-      this.setState({messages: data});
-
-      console.log("state %o", this.state.messages);
-    });
-  }
-
   render() {
     return (
-      <div className="App">
-        <MessageList messages={this.state.messages}/>
-        <MessageInput />
-      </div>
-    );
+      <Router>
+        <main>
+          <h1>APP (put nav here)</h1>
+          <Route exact path="/" component={Login} />
+          <Route path="/chat" component={Chat} />
+        </main>
+      </Router>
+    )
   }
 }
 
