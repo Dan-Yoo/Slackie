@@ -1,7 +1,8 @@
 import firebase from 'firebase';
+import env from '../environment/environment';
 
 const config = {
-    apiKey: process.env.FIREBASE_KEY,
+    apiKey: env.FIREBASE_KEY,
     authDomain: "slackie-dev.firebaseapp.com",
     databaseURL: "https://slackie-dev.firebaseio.com",
     projectId: "slackie-dev",
@@ -11,10 +12,13 @@ const config = {
 
 firebase.initializeApp(config);
 
-const db = firebase.firestore();
-
+export const db = firebase.firestore();
 db.settings({
     timestampsInSnapshots: true
 });
 
-export default db;
+export const auth = firebase.auth();
+
+export const getUser = () => {
+    console.log(firebase.auth().currentUser);
+}

@@ -1,4 +1,4 @@
-import db from "../index";
+import {db} from "../index";
 import firebase from "firebase";
 import { collection } from 'rxfire/firestore';
 import { map, shareReplay } from 'rxjs/operators';
