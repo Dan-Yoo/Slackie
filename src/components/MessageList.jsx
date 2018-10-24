@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Message from './Message';
 
 class MessageList extends Component {
     constructor(props) {
@@ -8,12 +9,10 @@ class MessageList extends Component {
     render() {
         return (
             <main>
-                <h1>MessageList</h1>
                 {this.props.messages.map(function(message, index){
                     return (
                         <div key={index}>
-                            <h3>{message.message}</h3>
-                            {/* <div>{console.log('message created %o', message.created)}</div>  */}
+                            <Message msgObj={message}/>
                         </div>
                     )
                 })}
