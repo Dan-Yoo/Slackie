@@ -24,12 +24,15 @@ class MessageInput extends Component {
         addMessage(this.state.value, 'Daniel Yoo');
 
         this.setState({value: ''});
+
+        // TODO:: scroll to bottom for messageList
     }
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit} noValidate autoComplete="off">
+            <form style={{width: "100%"}} onSubmit={this.handleSubmit} noValidate autoComplete="off">
                 <TextField
+                    style={{width: "100%"}}
                     label="Message"
                     value={this.state.value}
                     onChange={this.handleChange}
@@ -37,19 +40,6 @@ class MessageInput extends Component {
                     variant="filled"
                 />
             </form>
-        //     <form className={classes.container} noValidate autoComplete="off">
-        // <TextField
-        //   id="filled-name"
-        //   label="Name"
-        //   className={classes.textField}
-        //   value={this.state.name}
-        //   onChange={this.handleChange('name')}
-        //   margin="normal"
-        //   variant="filled"
-        // />
-            // <form onSubmit={this.handleSubmit}>
-            //     <input type='text' value={this.state.value} onChange={this.handleChange} placeholder='Press Enter to send'/>
-            // </form>
         )
     }
 }
