@@ -25,15 +25,13 @@ class MessageInput extends Component {
     handleChange(e) {
         e.preventDefault();
         this.setState({message: e.target.value});
+        console.log(this.state.message);
     }
 
     handleSubmit(e) {
         e.preventDefault();
-
         addMessage(this.state.message, this.state.author);
-
         this.setState({message: ''});
-
         // TODO:: scroll to bottom for messageList
     }
 
@@ -43,7 +41,7 @@ class MessageInput extends Component {
                 <TextField
                     style={{width: "100%"}}
                     label="Message"
-                    message={this.state.message}
+                    value={this.state.message}
                     onChange={this.handleChange}
                     margin="normal"
                     variant="filled"
