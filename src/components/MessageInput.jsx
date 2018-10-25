@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import {addMessage} from '../firebase/messages';
 import TextField from '@material-ui/core/TextField';
+import { authState } from 'rxfire/auth';
+import { auth } from '../firebase';
 
 class MessageInput extends Component {
     state = {
-        value: ''
+        author: '',
+        message: ''
     }
 
     constructor(props) {
@@ -13,17 +16,23 @@ class MessageInput extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount() {
+        authState(auth).subscribe(auth => {
+            this.setState({author: auth.uid});
+        });
+    }
+
     handleChange(e) {
         e.preventDefault();
-        this.setState({value: e.target.value});
+        this.setState({message: e.target.value});
     }
 
     handleSubmit(e) {
         e.preventDefault();
 
-        addMessage(this.state.value, 'Daniel Yoo');
+        addMessage(this.state.message, this.state.author);
 
-        this.setState({value: ''});
+        this.setState({message: ''});
 
         // TODO:: scroll to bottom for messageList
     }
@@ -34,7 +43,7 @@ class MessageInput extends Component {
                 <TextField
                     style={{width: "100%"}}
                     label="Message"
-                    value={this.state.value}
+                    message={this.state.message}
                     onChange={this.handleChange}
                     margin="normal"
                     variant="filled"

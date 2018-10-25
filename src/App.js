@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router} from 'react-router-dom';
 import { authState } from 'rxfire/auth';
 import {auth} from './firebase';
 import NavBar from './components/NavBar';
@@ -14,16 +14,19 @@ class App extends Component {
   }
 
   constructor() {
-    super()
+    super();
   }
 
   componentDidMount() {
-    authState(auth).subscribe(user => {
-      console.log(user);
-      if (user) {
-        this.setState({loggedIn: true});
+    authState(auth).subscribe(auth => {
+      if (auth) {
+        this.setState({
+          loggedIn: true
+        });
       } else {
-        this.setState({loggedIn: false});
+        this.setState({
+          loggedIn: false
+        });
       }
     });
   }
@@ -37,7 +40,7 @@ class App extends Component {
           direction="column"
           alignItems="stretch">
           <Grid item>
-            <NavBar loggedIn={this.state.loggedIn} />
+            <NavBar loggedIn={this.state.loggedIn}/>
           </Grid>
           <Grid item xs style={{overflow: "hidden"}}>
             {(this.state.loggedIn) ? <Chat /> : <Login />}

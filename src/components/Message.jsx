@@ -24,7 +24,7 @@ class Message extends Component {
                     alignItems="center" 
                     spacing={16}>
                     <Grid item style={{fontWeight: "bold"}}>
-                        {this.props.msgObj.author}
+                        {this.props.msgObj.username}
                     </Grid>
 
                     <Grid item style={{fontSize: "0.75rem"}}>
