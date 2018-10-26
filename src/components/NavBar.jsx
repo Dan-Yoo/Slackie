@@ -1,24 +1,51 @@
 import React, {Component} from 'react';
 import AppBar from '@material-ui/core/AppBar';
-import { Toolbar, Button } from '@material-ui/core';
+import Person from '@material-ui/icons/Person'
+import { Toolbar, Button, Menu, MenuItem } from '@material-ui/core';
 import { logout } from '../firebase/auth';
 
 class NavBar extends Component {
-    constructor(props) {
-        super(props);
+    state = {
+        openMenu: null
     }
 
-    logoutButton() {
-        return (
-            <Button onClick={logout}>Logout</Button>
-        );
+    constructor(props) {
+        super(props);
+        this.handleMenuClick = this.handleMenuClick.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
+    }
+
+    handleMenuClick(e) {
+        this.setState({openMenu: e.currentTarget});
+    }
+
+    handleClose() {
+        this.setState({openMenu: null});
+    }
+
+    handleLogout() {
+        this.handleClose();
+        logout();
     }
 
     render() {
         return (
             <AppBar position="relative">
-                <Toolbar>
-                    {this.props.loggedIn ? <this.logoutButton /> : null}
+                <Toolbar>   
+                    <Button onClick={this.handleMenuClick}>
+                        <Person />
+                    </Button>
+                    {/* {this.props.loggedIn ? <this.logoutButton /> : null} */}
+                    <Menu
+                        id="simple-menu"
+                        anchorEl={this.state.openMenu}
+                        open={Boolean(this.state.openMenu)}
+                        onClose={this.handleClose}
+                    >
+                        <MenuItem>Profile</MenuItem>
+                        <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+                    </Menu>
                 </Toolbar>
             </AppBar>
         )

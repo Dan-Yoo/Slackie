@@ -18,7 +18,7 @@ class MessageInput extends Component {
 
     componentDidMount() {
         authState(auth).subscribe(auth => {
-            this.setState({author: auth.uid});
+            if (auth) this.setState({author: auth.uid});
         });
     }
 
