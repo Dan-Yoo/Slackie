@@ -30,9 +30,10 @@ class MessageInput extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        addMessage(this.state.message, this.state.author);
+        addMessage(this.state.message, this.state.author).then(() => {
+            this.props.scrollToBottom();
+        });
         this.setState({message: ''});
-        // TODO:: scroll to bottom for messageList
     }
 
     render() {

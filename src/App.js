@@ -13,10 +13,6 @@ class App extends Component {
     loggedIn: false
   }
 
-  constructor() {
-    super();
-  }
-
   componentDidMount() {
     authState(auth).subscribe(auth => {
       if (auth) {

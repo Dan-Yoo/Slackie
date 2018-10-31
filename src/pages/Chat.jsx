@@ -3,7 +3,6 @@ import MessageList from '../components/MessageList';
 import MessageInput from '../components/MessageInput';
 import {getMessages} from '../firebase/messages';
 import { Grid } from '@material-ui/core';
-import UserSetting from '../components/UserSetting';
 
 class Chat extends Component {
     navStyle = {
@@ -13,15 +12,18 @@ class Chat extends Component {
     state = {
         messages: []
     };
-    
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
         getMessages().subscribe(data => {
             this.setState({messages: data});
         });
+
+        setTimeout(this.scrollToBottom, 1000)
+    }
+
+    scrollToBottom() {
+        let container = document.getElementById("message-list");
+        container.scrollIntoView({behavior: "instant", block: "end"});
     }
 
     render() {
@@ -33,10 +35,10 @@ class Chat extends Component {
                 alignItems="stretch">
                 <Grid item sm={3} style={this.navStyle}>
                     {/* CHAT NAV */}
-                    <UserSetting />
+                    {/* <UserSetting /> */}
                 </Grid>
                 <Grid
-                    style={{padding: "10px"}}
+                    style={{padding: "10px", paddingTop: "0"}}
                     item sm={9}
                     container
                     direction="column"
@@ -46,7 +48,7 @@ class Chat extends Component {
                         <MessageList messages={this.state.messages}/>
                     </Grid>
                     <Grid item>
-                        <MessageInput />
+                        <MessageInput scrollToBottom={this.scrollToBottom}/>
                     </Grid>
                 </Grid>    
             </Grid>

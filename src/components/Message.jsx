@@ -6,10 +6,6 @@ class Message extends Component {
         padding: "5px 0"
     }
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <Grid
@@ -19,7 +15,7 @@ class Message extends Component {
                 <Grid item>
                         <Avatar>
                             {this.props.msgObj.username.substring(0,1)}
-                        </Avatar>
+                    </Avatar>
                 </Grid>
                 <Grid 
                     sm

@@ -7,10 +7,6 @@ class MessageList extends Component {
         users: {}
     }
 
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         getAllUsers().subscribe(users => {
             console.log("USERS ", users);
@@ -18,11 +14,19 @@ class MessageList extends Component {
                 this.setState({users: users})
             }
         });
+
+        // scroll to bottom
+        // setTimeout(this.scrollToBottom, 1000);
+    }
+
+    scrollToBottom() {
+        let container = document.getElementById("message-list");
+        container.scrollIntoView({behavior: "instant", block: "end"});
     }
 
     render() {
         return (
-            <main>
+            <main id="message-list">
                 {this.props.messages.map((message, index) => {
                     { 
                         let user = this.state.users[message.author];

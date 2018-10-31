@@ -3,10 +3,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Person from '@material-ui/icons/Person'
 import { Toolbar, Button, Menu, MenuItem } from '@material-ui/core';
 import { logout } from '../firebase/auth';
+import { UserSettingDialog } from './UserSettingDialog';
 
 class NavBar extends Component {
     state = {
-        openMenu: null
+        openMenu: null,
+        openProfile: false
     }
 
     constructor(props) {
@@ -14,6 +16,7 @@ class NavBar extends Component {
         this.handleMenuClick = this.handleMenuClick.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
+        this.toggleProfile = this.toggleProfile.bind(this);
     }
 
     handleMenuClick(e) {
@@ -27,6 +30,10 @@ class NavBar extends Component {
     handleLogout() {
         this.handleClose();
         logout();
+    }
+
+    toggleProfile() {
+        this.setState({openProfile: !this.state.openProfile});
     }
 
     render() {
@@ -43,10 +50,15 @@ class NavBar extends Component {
                         open={Boolean(this.state.openMenu)}
                         onClose={this.handleClose}
                     >
-                        <MenuItem>Profile</MenuItem>
+                        {/* route to profile path actually */}
+                        <MenuItem onClick={this.toggleProfile}>Profile</MenuItem>
                         <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
                     </Menu>
                 </Toolbar>
+                {/* <UserSettingDialog
+                    open={this.state.openProfile}
+                    onClose={this.toggleProfile}
+                /> */}
             </AppBar>
         )
     }
